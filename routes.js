@@ -55,7 +55,7 @@ const generateItems = (items) => {
   items = items.map((item) => ({
     title: item.title,
     year: item.year,
-    imdb: item.imdb.rating || "-",
+    imdb: item.imdb?.rating || "-",
     tomatoes: item.tomatoes?.critic?.rating || "-",
     metacritic: item.metacritic || "-",
     poster: item.poster || "",
@@ -68,7 +68,6 @@ const generateItems = (items) => {
 // Postear una pelicula
 router.post("/peliculas", (req, res) => {
   let item = req.body;
-  console.log(item);
   const result = itemSchema.validate;
   if (result.error) {
     console.log(result.error);

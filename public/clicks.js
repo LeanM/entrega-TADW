@@ -74,23 +74,23 @@ const generatePeliculaRandom = (data) => {
   poster = data[3].poster;
   cast = data[2].cast;
 
-  let jsonPeliculaGenerada = [
-    {
-      title: title,
-      year: year,
-      fullplot: fullplot,
-      poster: poster,
-      cast: cast,
-    },
-  ];
-
+  let jsonPeliculaGenerada = {
+    title: title,
+    year: year,
+    fullplot: fullplot,
+    poster: poster,
+    cast: cast,
+  };
   return jsonPeliculaGenerada;
 };
 
-const postPeliculaGenerada = (item) => {
+const postPeliculaGenerada = (pelicula) => {
   fetch("/peliculas", {
+    headers: {
+      "Content-Type": "application/json",
+    },
     method: "POST",
-    body: item,
+    body: JSON.stringify(pelicula),
   }).then(function (response) {
     if (!response.ok) {
       throw new Error("Request failed.");
@@ -150,7 +150,7 @@ const clearSearchDescription = () => {
 };
 
 const showPeliculaGenerada = (jsonPeliculaGenerada) => {
-  const peli = jsonPeliculaGenerada[0];
+  const peli = jsonPeliculaGenerada;
   const divDesc = document.getElementById("resultados");
   desc =
     '<div class="item_pelicula">' +
